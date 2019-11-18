@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="info">
+	<Appenders>
+	      <!-- DO NOT name property AS IT HAS BEEN HARDCODED IN CODE ViewLogAction.java-->
+	     <Routing name="REPORTFILE">
+	      <!-- DO NOT pattern property AS IT HAS BEEN HARDCODED IN CODE ViewLogAction.java-->
+	        <Routes pattern="${ctx:logFileName}">
+	            <Route>
+	                <RollingFile name="Rolling-${ctx:logFileName}"
+	                             fileName="D:/softwares/apache-tomcat-9.0.10/logs/${ctx:logFileName}.log"
+	                             filePattern="D:/softwares/apache-tomcat-9.0.10/logs/${ctx:logFileName}.%i.log">
+	                    <PatternLayout pattern="[%d{ISO8601}] [%t] %c:%L %n[%-5p] %m %n"/>
+						<Policies>
+						<SizeBasedTriggeringPolicy size="2000 KB" />
+						</Policies>
+						<DefaultRolloverStrategy max="10"/>
+						<Filters>
+						    <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+						</Filters>
+	                </RollingFile>
+	            </Route>
+		        <!-- Incase no logFileName is present -->
+    	        <Route ref="COMMONLOGFILE" key="${ctx:logFileName}"/>
+            </Routes>
+	    </Routing>
+	    
+       	<RollingFile name="FILE" fileName="D:/softwares/apache-tomcat-9.0.10/logs/grafhopper.log" 
+    			filePattern="D:/softwares/apache-tomcat-9.0.10/logs/grafhopper.%i.log">
+			<PatternLayout pattern="[%d{ISO8601}] [%t] %c:%L %n[%-5p] %m %n"/>
+			<Policies>
+			<SizeBasedTriggeringPolicy size="2000 KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20"/>
+			<Filters>
+			    <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters>
+		</RollingFile>
+
+      <!-- DO NOT CHANGE name property AS IT HAS BEEN HARDCODED IN CODE ViewLogAction.java-->
+       	<RollingFile name="COMMONLOGFILE" fileName="D:/softwares/apache-tomcat-9.0.10/logs/commonLogs.log" 
+    			filePattern="D:/softwares/apache-tomcat-9.0.10/logs/commonLogs.%i.log">
+			<PatternLayout pattern="[%d{ISO8601}] [%t] %c:%L %n[%-5p] %m %n"/>
+			<Policies>
+			<SizeBasedTriggeringPolicy size="2000 KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20"/>
+			<Filters>
+			    <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters>
+		</RollingFile>
+
+       	<RollingFile name="NODEQUERYFILE" fileName="D:/softwares/apache-tomcat-9.0.10/logs/nodeQueries.log" 
+    			filePattern="D:/softwares/apache-tomcat-9.0.10/logs/nodeQueries.%i.log">
+			<PatternLayout pattern="%m %n"/>
+			<Policies>
+			<SizeBasedTriggeringPolicy size="2000000 KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20"/>
+			<Filters>
+			    <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters>
+		</RollingFile>
+
+       	<RollingFile name="RELATIONQUERYFILE" fileName="D:/softwares/apache-tomcat-9.0.10/logs/relationQueries.log" 
+    			filePattern="D:/softwares/apache-tomcat-9.0.10/logs/relationQueries.%i.log">
+			<PatternLayout pattern="%m %n"/>
+			<Policies>
+			<SizeBasedTriggeringPolicy size="2000000 KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20"/>
+			<Filters>
+			    <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters>
+		</RollingFile>
+
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="[%d{ISO8601}] [%t] %c:%L %n[%-5p] %m %n"/>
+			<Filters>
+		        <!-- deny warn messages -->
+       		    <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL" />
+		
+		        <!-- This filter accepts info, warn, error, fatal and denies debug/trace -->
+			    <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters>
+		</Console>
+	</Appenders>
+	<Loggers>	
+		<logger name="com.grafhopper" additivity="false">
+  			<AppenderRef ref="FILE" />
+  			<AppenderRef ref="CONSOLE" />
+  			<AppenderRef ref="REPORTFILE" />
+  		</logger>
+		
+		<logger name="com.grafhopper.services.sectioncalculationservice.service2" additivity="false">
+  			<AppenderRef ref="NODEQUERYFILE" />
+			<AppenderRef ref="CONSOLE"/>
+  		</logger>
+
+		<logger name="com.grafhopper.services.sectioncalculationservice.service3" additivity="false">
+  			<AppenderRef ref="RELATIONQUERYFILE" />
+			<AppenderRef ref="CONSOLE"/>
+  		</logger>
+
+		<root level="info">
+			<AppenderRef ref="CONSOLE"/>
+		</root>
+	</Loggers>	
+</Configuration>

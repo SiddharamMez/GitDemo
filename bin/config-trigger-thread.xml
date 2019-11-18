@@ -1,0 +1,16 @@
+<!-- This configuration is related to Trigger Component. -->
+<!-- 
+NOTE : Do not modify queue names
+ -->
+<tc-config>
+	<threads>
+ 		<thread enabled="false" count="1" queuename="DataFetchQueue" queuemessagehandler="com.grafhopper.services.trigger.service.trigger.DataFetchTrigger"/> 
+ 		<thread enabled="true" count="1" queuename="SectionDataFetchQueue" queuemessagehandler="com.grafhopper.services.trigger.service.trigger.SectionDataFetchTrigger"/> 
+ 		<thread enabled="false" count="1" queuename="ParameterProcessingQueue" queuemessagehandler="com.grafhopper.services.trigger.service.trigger.ParameterProcessingTrigger"/> 
+ 		<thread enabled="false" count="1" queuename="MetricCalculationQueue" queuemessagehandler="com.grafhopper.services.trigger.service.trigger.MetricCalculationTrigger"/> 
+ 		<thread enabled="true" count="1" queuename="SectionCalculationQueue" queuemessagehandler="com.grafhopper.services.trigger.service.trigger.SectionCalculationTrigger"/> 
+ 		<thread enabled="false" count="1" queuename="AlertCalculationQueue" queuemessagehandler="com.grafhopper.services.trigger.service.trigger.AlertCalculationTrigger"/> 
+ 		<thread enabled="false" count="1" queuename="MeasureCalculationQueue" queuemessagehandler="com.grafhopper.services.trigger.service.trigger.MeasureCalculationTrigger"/>
+ 		<thread enabled="false" count="1" queuename="OutputDataUpdateQueue" queuemessagehandler="com.grafhopper.services.trigger.service.trigger.OutputDataUpdateTrigger"/> 
+ 	</threads>
+</tc-config>

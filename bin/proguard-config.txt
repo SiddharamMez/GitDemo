@@ -1,0 +1,91 @@
+   # This property will make sure proguard do not shrink files otherwise it will make changes in compiled class files	
+   -dontshrink
+   
+   # This property will make sure proguard do not optimize files otherwise it will make changes in compiled class files	
+   -dontoptimize
+   
+   # This property will make sure proguard do not preverify files otherwise it will make changes in compiled class files	
+   -dontpreverify
+   
+   # This property will make sure proguard use same case names for classes otherwise it has been observed that it given class name 
+   # as LowerCase but imports in smallcase	
+   -dontusemixedcaseclassnames
+
+    # This property will make sure proguard do not change name of main methods in classes
+   -keepclasseswithmembers public class * {
+        public static void main(java.lang.String[]);
+    }
+
+    # This property will make sure proguard do not change name of interface classes
+    -keep interface *
+
+    # This property will make sure proguard do not change package name of classes otherwise it will change package to a.b.c.d and 
+    # diststandard task in build.xml will fail which depends on folder names for making jar
+    -keeppackagenames
+
+    # This property will make sure proguard do not change name of ActionForm and Action classes as these are hardcoded in struts-config.xml  
+    -keepnames public class * extends org.apache.struts.action.ActionForm
+    -keepnames public class * extends org.apache.struts.action.Action
+    -keepnames public class * extends com.grafhopper.ui.common.action.BaseAction
+
+    # This property will make sure proguard do not change name as it has been hardcoded in build.xml
+    -keepnames public class com.grafhopper.services.trigger.service.TriggerEngine
+
+    # This property will make sure proguard do not change name as it has been hardcoded in config-trigger-thread.xml
+    -keepnames public class com.grafhopper.services.trigger.service.trigger.DataFetchTrigger
+    -keepnames public class com.grafhopper.services.trigger.service.trigger.ParameterProcessingTrigger
+    -keepnames public class com.grafhopper.services.trigger.service.trigger.MetricCalculationTrigger
+    -keepnames public class com.grafhopper.services.trigger.service.trigger.MonitorCalculationTrigger
+
+    # This property will make sure proguard do not change name as it has been hardcoded in web.xml
+    -keepnames public class com.grafhopper.ui.common.action.CharacterEncodingFilter
+
+    # This property will make sure proguard do not change name as it has been hardcoded in web-inf/services
+    -keepclasseswithmembers public interface com.grafhopper.webservices.metrixtrackwebservice.MetrixTrackWebService {public <methods>;}
+    -keepclasseswithmembers public class com.grafhopper.webservices.metrixtrackwebservice.MetrixTrackWebServiceImpl {public <methods>;}
+    -keepclasseswithmembers public class com.grafhopper.controllers.authorization.authorizationcontroller.UpdateDesktopAppDataWebService {public <methods>;}
+    -keepclasseswithmembers public class com.grafhopper.controllers.authorization.authorizationcontroller.AuthenticationWebService {public <methods>;}
+
+    # This property will make sure proguard do not change name as it has been hardcoded in FlexScorecard.jsp
+    -keepclasseswithmembers public class com.metrixline.core.services.userservice.model.BaseUser {public <methods>;}
+    -keepclasseswithmembers public class com.metrixline.core.services.userservice.model.UserType {public <methods>;}
+    -keepclasseswithmembers public class com.metrixline.core.services.userservice.model.Product {public <methods>;}
+    -keepclasseswithmembers public class com.metrixline.core.services.contentservice.manager.ContentManager {public <methods>;}
+    -keepclasseswithmembers public class com.metrixline.core.services.contentservice.model.Content {public <methods>;}
+    -keepclasseswithmembers public class com.metrixline.core.services.contentservice.model.ContentImpl {public <methods>;}
+    -keepclasseswithmembers public class com.metrixline.core.services.userservice.model.BaseOrganization {public <methods>;}
+    -keepclasseswithmembers public class com.metrixline.core.services.userservice.model.BaseUserProduct {public <methods>;}
+    -keepclasseswithmembers public class com.metrixline.core.services.organizationclassificationservice.model.Vertical {public <methods>;}
+    -keepclasseswithmembers public class com.metrixline.core.services.organizationclassificationservice.model.SizeByRevenue {public <methods>;}
+    -keepclasseswithmembers public class com.metrixline.core.services.organizationclassificationservice.model.SizeByEmployee {public <methods>;}
+    -keepclasseswithmembers public final class com.metrixline.core.services.contentservice.model.ContentKeyType {public <fields>;}
+    -keepclasseswithmembers public class com.grafhopper.services.expressionevaluationservice.service.AnalyticFunctionLibrary {public <methods>;}
+
+
+    # This property will make sure proguard do not change getter setter methods in form beans as they are called from JSP code and Flex HTTSService
+    -keepclasseswithmembers class * extends org.apache.struts.action.ActionForm {public <methods>;}
+
+    # This property will make sure proguard do not change servelet methods InitTriggerServlet and InitContentServlet are the two initializing servlet
+    -keepclasseswithmembers public class * extends javax.servlet.http.HttpServlet {public <methods>;}
+
+    # This property will make sure proguard do not change name of process method as it is being called using Reflection
+    -keepclassmembers class * implements com.grafhopper.services.trigger.service.trigger.Trigger {
+        public void process(com.grafhopper.services.queuemessageservice.model.QueueMessage);
+     }
+
+    # This property will make sure proguard do not change these standard methods in all ENUMS
+    -keepclassmembers class * extends java.lang.Enum {
+	   public static **[] values();
+	   public static ** valueOf(java.lang.String);
+    }
+
+    # This property will make sure proguard do not change these standard method names in all classes that implement Serializable
+    -keepclassmembers class * implements java.io.Serializable {
+	   static final long serialVersionUID;
+	   static final java.io.ObjectStreamField[] serialPersistentFields;
+	   private void writeObject(java.io.ObjectOutputStream);
+	   private void readObject(java.io.ObjectInputStream);
+	   private void readObject(java.io.ObjectInputStream);
+	   java.lang.Object writeReplace();
+	   java.lang.Object readResolve();
+    }
